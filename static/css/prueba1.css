@@ -1,0 +1,87 @@
+*{
+  margin: 0px; padding: 0px;
+}
+
+.fondo {
+  background-color: #022561;
+  width: 1520px;
+  height: 937px;
+  position: absolute;
+  left: 20.82%;
+}
+.posiciónTítulo {
+  width: 512px;
+  height: 160px;
+  position: relative;
+  top: 50px;
+  left: 504px;
+  text-transform: uppercase;
+}
+
+.título {
+  font-family: segoe UI;
+  font-weight: 600;
+  font-size: 60px;
+  color: #fff;
+  text-align: center;
+}
+
+.posiciónCorreo {
+  width: 160px;
+  height: 51px;
+  position: relative;
+  top: 210px;
+  left: 504px;
+}
+
+.posiciónContraseña {
+  width: 512px;
+  height: 51px;
+  position: relative;
+  top: 240px;
+  left: 504px;
+}
+
+.posiciónBotón {
+  width: 512px;
+  height: 51px;
+  position: relative;
+  top: 340px;
+  left: 504px;
+}
+
+.posiciónImágen {
+  width: 200;
+  position: absolute;
+  right: 108%;
+  bottom: 0%;
+}
+
+.campo {
+  font-family: segoe UI;
+  font-weight: 400;
+  font-size: 20px;
+  color: #8E8E93;
+  text-align: center;
+  padding: 12px 145px;
+  border-radius: 20px;
+  border: 0px;
+}
+
+.botón {
+  display: inline-block;
+  background-color: #FF9500;
+  font-family: segoe UI;
+  font-weight: 400;
+  font-size: 20px;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  padding: 12px 199px;
+  border-radius: 20px;
+  border: 0px;
+}
+
+.botón:hover {
+  opacity: 0.8;
+}
