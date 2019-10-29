@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <link rel="stylesheet" href="/static/css/login.css">
 </head>
 
 <body>
@@ -18,11 +18,13 @@
                 <h1>Unisabana Planing Board</h1>
             </div>
         </div>
-        <form action="home.html" method="POST">
+        <form action="/login" method="POST">
             <div class="contenedor-campos">
                 <div class="campos">
-                    <input type="email" placeholder="Ingresa tu email" required>
-                    <input type="password" placeholder="Ingresa tu contraseña" required>
+                    <input type="email" value="{{ request.form.email }}" 
+                    name = "email" placeholder="Ingresa tu email" required>
+                    <input type="password" value="{{ request.form.contraseña }}" 
+                    name = "contraseña" placeholder="Ingresa tu contraseña" required>
                 </div>
             </div>
             <div class="contenedor-boton">
@@ -35,7 +37,7 @@
     <footer>
         <div class="contenedor-imagen">
             <div class="imagen">
-                <img src="imagenes/logo.png" alt="Escudo Universidad de La Sabana" class="logo" width="200px">
+                <img src="/static/images/logo.png" alt="Escudo Universidad de La Sabana" class="logo" width="200px">
             </div>
         </div>
     </footer>

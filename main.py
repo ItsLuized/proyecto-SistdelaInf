@@ -1,20 +1,22 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, flash, url_for, request, redirect
 
 app = Flask(__name__)
 
 @app.route('/')
-def home():
-    return render_template('prueba1.html')
+def loginPage():
+    return render_template('login.html')
     
 @app.route('/login',  methods = ['POST'])
 def login():
-    error = None
     if request.method == 'POST':
-        if request.form['email'] != 'admin@correo.com' or request.form['contraseña'] != 'admin':
-            error = 'Invalid Credentials. Please try again.'
-        else:
-            return "<h1> Lo lograste prro :V</h1>"
-    return render_template('prueba1.html', error=error)
-    
+        if request.form['email'] == 'admin@correo.com' and request.form['contraseña'] == 'admin':
+            return redirect('/home')
+    return render_template('login.html')
+
+@app.route('/home')
+def home():
+    return render_template('home.html', nombre = 'Nombre') 
+    #Cambiar la igualdad de nombre por alguna consulta de SQL que retorne el nombre de la persona
+
 if __name__ == "__main__":
     app.run(debug=True)
