@@ -18,5 +18,9 @@ def home():
     return render_template('home.html', nombre = 'Nombre') 
     #Cambiar la igualdad de nombre por alguna consulta de SQL que retorne el nombre de la persona
 
+@app.route('/planestrategico')
+def planEstrategico():
+    return render_template('plan-estrategico.html')
+
 if __name__ == "__main__":
     app.run(debug=True)

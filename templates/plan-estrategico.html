@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Plan estratégico</title>
     <script src="https://kit.fontawesome.com/4e4e7f8918.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <link rel="stylesheet" href="/static/css/estilos.css">
 </head>
 
 <body>
@@ -17,7 +17,7 @@
         <div class="contenedor-header">
             <div class="contenedor-atras">
                 <div class="atras">
-                    <a class="Btn_atras" href="home.html"><i class="fas fa-chevron-left"></i></a>
+                    <a class="Btn_atras" href="{{ url_for('home') }}"></a><i class="fas fa-chevron-left"></i></a>
                 </div>
             </div>
             <div class="contenedor-texto">
@@ -64,7 +64,7 @@
                         <td>3</td>
                         <td>
                             <div class="botonListar">
-                                <a href="plan-estratégico.html">Listar</a>
+                                <a href="plan-estrategico.html">Listar</a>
                             </div>
                         </td>
 
