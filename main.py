@@ -22,5 +22,23 @@ def home():
 def planEstrategico():
     return render_template('plan-estrategico.html')
 
+
+#Back-end
+
+#USUARIO
+@app.route('/usuario/create', methods = ['POST'])
+def crearUsuario():
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        email = request.form['email']
+        contraseña = request.form['contraseña']
+        id_cargo = request.form['id_cargo']
+        estado = request.form['estado']
+
+#@app.route('/usuario/update', methods = ['POST'])
+#def updateUsuario():
+#    if request.method == 'POST':
+
+
 if __name__ == "__main__":
     app.run(debug=True)
