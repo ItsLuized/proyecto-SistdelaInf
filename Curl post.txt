@@ -1,0 +1,1 @@
+ curl -X POST http://localhost:5000/usuario/create -d '{"nombre":"nepe", "email" : "algo@algo.com", "contrasena":"tumama", "id_cargo": 1, "estado":"ACTIVO"}' -H "Content-Type: application/json"

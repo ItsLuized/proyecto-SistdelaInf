@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Crear usuario</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/login.css">
+</head>
+
+<body>
+    <div class="contenedor">
+        <div class="contenedor-titulo">
+            <div class="titulo">
+                <h1>Crear usuario</h1>
+            </div>
+        </div>
+        <form action="Acá se pone el link a Ajax" method="POST">
+            <div class="contenedor-campos dos">
+                <div class="campos">
+                    <input id="campoNombre" type="text" placeholder="Ingresar nombre" required>
+                    <input id="campoEmail" type="email" placeholder="Ingresar email" required>
+                    <input id="campoPassword" type="password" placeholder="Ingresar contraseña" required>
+                    <select id="campoRol" required>
+                        <!-- No borres los espacios, son carácteres invisibles pa que quede centrado jeje -->
+                        <option disabled selected value="escoger-rol">                                           Escoger
+                            rol</option>
+                        <option value="administrador">                                       Administrador</option>
+                        <option value="planeador">                                           Planeador</option>
+                        <option value="lider-imperativos">                                   Lider de imperativo
+                        </option>
+                        <option value="ejecutor">                                            Ejecutor</option>
+                        <!-- Lo sé, re improvisada la solución pero sirve :p -->
+                    </select>
+
+                </div>
+            </div>
+            <div class="contenedor-boton">
+                <div class="boton">
+                    <input id="botonSubmit" value="Crear usuario">
+                </div>
+            </div>
+        </form>
+    </div>
+    <footer>
+        <div class="contenedor-imagen x">
+            <div class="imagen">
+                <img src="../static/images/logo.png" alt="Escudo Universidad de La Sabana" class="logo" width="200px">
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

@@ -6,12 +6,9 @@ class SQLServerController():
         #Iniciar conexión
 
         #Cadena de conexión 
-        self.conn = pyodbc.connect("Driver = {ODBC Driver 17 for SQL Server};" 
-                                "Server = LAPTOP-24PFM6VE;" #Nombre del servidor SQL Server 
-                                "Database = db_name;" #Nombre de la DB
-                                "Trusted_Connection = yes;") #Que Windows, o el OS, haga la autentificación
-
-
+        self.conn = pyodbc.connect(driver='{SQL Server}', host='LAPTOP-24PFM6VE', database='Test',
+                      trusted_connection='yes')
+        
     def insert(self, sql, val):
         try:
             with self.conn.cursor() as cursor:
@@ -24,7 +21,6 @@ class SQLServerController():
         try:
             with self.conn.cursor() as cursor:
                 cursor.execute(sql, val)
-                cursor.close()
                 result = cursor.fetchall()
 
                 return result
@@ -32,3 +28,14 @@ class SQLServerController():
         except pyodbc.IntegrityError as e:
             print("Error: Error realizando un query: \t", e)
     
+
+    def selectn(self, sql):
+        try:
+            with self.conn.cursor() as cursor:
+                cursor.execute(sql)
+                result = cursor.fetchall()
+
+                return result
+
+        except pyodbc.IntegrityError as e:
+            print("Error: Error realizando un query: \t", e)
