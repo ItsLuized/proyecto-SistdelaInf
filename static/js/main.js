@@ -9,7 +9,7 @@ $('#botonSubmit').on('click', function enviarSolicitud() {
         "email": email,
         "contrasena": password,
         "id_cargo": 1,
-        "estado":"ACTIVO"
+        "estado": "ACTIVO"
     });
     console.log(nombre + " // " + email + " // " + password + " // " + rol);
     $.ajax({

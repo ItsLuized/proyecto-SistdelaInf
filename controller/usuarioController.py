@@ -25,8 +25,9 @@ class usuarioController():
         id_usuario = self.sqlserver.select(sql, val)
 
         sql = '''UPDATE usuario
-                SET nombre = ?, correo = ?, contrasena = ?, id_cargo = ?, estado = ?'''
-        val = (nombre, correo, contraseña, id_cargo, estado)
+                SET nombre = ?, correo = ?, contrasena = ?, id_cargo = ?, estado = ?
+                WHERE ID_USUARIO = ?'''
+        val = (nombre, email, contraseña, id_cargo, estado, id_usuario)
 
         
 

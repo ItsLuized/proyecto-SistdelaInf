@@ -8,6 +8,7 @@ app = Flask(__name__)
 def loginPage():
     return render_template('login.html')
 
+
 @app.route('/register')
 def registerPage():
     return render_template('crear-usuario.html')
@@ -43,12 +44,14 @@ def crearUsuario():
     contraseña = request.json['contrasena']
     id_cargo = request.json['id_cargo']
     estado = request.json['estado']
-    print (nombre)
+    if nombre == "" or email == "" or contraseña == "" or id_cargo == None:
+        return  # CORREGIR ESTO, PUES DA ERROR AL NO RETORNAR ALGO
+
     a = usuarioController()
     a.createUser(nombre, email, contraseña, id_cargo, estado)
     return str(a.getUser())
 
-    
+
 # @app.route('/usuario/update', methods = ['POST'])
 # def updateUsuario():
 #    if request.method == 'POST':

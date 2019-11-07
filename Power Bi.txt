@@ -1,0 +1,3 @@
+https://app.powerbi.com/view?r=eyJrIjoiZTI0NjY5MDMtMTdjZS00ZGNlLWJjYWQtMzMwOThjNzE4NmU3IiwidCI6ImFjYTUxNjMxLTAwZmUtNDkwZC05MWFiLTE2M2VmODcyNjBlZSIsImMiOjR9
+
+<iframe width="800" height="600" src="https://app.powerbi.com/view?r=eyJrIjoiZTI0NjY5MDMtMTdjZS00ZGNlLWJjYWQtMzMwOThjNzE4NmU3IiwidCI6ImFjYTUxNjMxLTAwZmUtNDkwZC05MWFiLTE2M2VmODcyNjBlZSIsImMiOjR9" frameborder="0" allowFullScreen="true"></iframe>
