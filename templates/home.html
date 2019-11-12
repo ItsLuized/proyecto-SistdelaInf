@@ -23,8 +23,9 @@
             <div class="menu">
 
                 <nav>
-                    <a class="notificaciones" href="notificaciones.html"><i class="fas fa-bell"></i></a>
-                    <a class="perfil" href="menú.html"><i class="fas fa-user-circle"></i></a>
+                    <!-- <a class="notificaciones" href="{{ url_for('notificaciones') }}"><i class="fas fa-bell"></i></a> -->
+                    <a class="notificaciones" href="{{ url_for('construccion') }}"><i class="fas fa-bell"></i></a>
+                    <a class="perfil" href="{{ url_for('menu') }}"><i class="fas fa-user-circle"></i></a>
                 </nav>
 
             </div>
@@ -36,7 +37,7 @@
         <div class="contenedor">
             <div class="contenedor-titulo">
                 <div class="bienvenido">
-                    <h2> Bienvenido de nuevo, Camilo</h2>
+                    <h2> Bienvenido de nuevo, {{ nombre }}</h2>
                 </div>
             </div>
             <div class="contenedor-descripcion">
@@ -47,27 +48,23 @@
             </div>
             <div class="contenedor-boton">
                 <div class="boton">
-                    <a href="plan-estratégico.html">Plan estratégico <i class="far fa-calendar-alt"></i></a>
-                    <a href="plan-operativo.html">Plan operativo <i class="fas fa-user-plus"></i></i></a>
+                    <a href="{{ url_for('planEstrategico') }}">Plan estratégico <i class="far fa-calendar-alt"></i></a>
+                    <a href="{{ url_for('planOperativo') }}">Plan operativo <i class="fas fa-user-plus"></i></i></a>
 
                 </div>
             </div>
         </div>
 
     </section>
-    {% extends "footer.html" %}
-    {% block footer %}
-    {% endblock %}
-    <!--
     <footer>
 
         <div class="contenedor-imagen">
             <div class="imagen">
-                <img src="imagenes/Sabana1.png" alt="Escudo Universidad de La Sabana" class="logo" width="200px">
+                <img src="../static/images/Sabana1.png" alt="Escudo Universidad de La Sabana" class="logo" width="200px">
             </div>
         </div>
 
-    </footer> -->
+    </footer> 
 </body>
 
 </html>

@@ -15,7 +15,7 @@
         <div class="contenedor-header">
             <div class="contenedor-atras">
                 <div class="atras">
-                    <a class="Btn_atras" href="menú.html"><i class="fas fa-chevron-left"></i></a>
+                    <a class="Btn_atras" href="{{ url_for('menu') }}"><i class="fas fa-chevron-left"></i></a>
                 </div>
             </div>
             <div class="contenedor-texto">
@@ -25,8 +25,9 @@
             </div>
             <div class="menu">
                 <nav>
-                    <a class="notificaciones" href="notificaciones.html"><i class="fas fa-bell"></i></a>
-                    <a class="perfil" href="menú.html"><i class="fas fa-user-circle"></i></a>
+                    <!-- <a class="notificaciones" href="{{ url_for('notificaciones') }}"><i class="fas fa-bell"></i></a> -->
+                    <a class="notificaciones" href="{{ url_for('construccion') }}"><i class="fas fa-bell"></i></a>
+                    <a class="perfil" href="{{ url_for('menu') }}"><i class="fas fa-user-circle"></i></a>
                 </nav>
             </div>
         </div>
@@ -35,8 +36,8 @@
     <div class="contenedor-perfil">
 
         <div class="imagen">
-            <img src="imagenes/perfil.png" alt="Foto de perfil" width="132px">
-            <h2>Camilo Andrés</h2>
+            <img src="../static/images/perfil.png" alt="Foto de perfil" width="132px">
+            <h2>{{ nombre }}</h2>
             <p>Administrador</p>
         </div>
 

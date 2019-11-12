@@ -20,8 +20,8 @@
         <form action="/login" method="POST">
             <div class="contenedor-campos">
                 <div class="campos">
-                    <input type="email" placeholder="Ingresa tu email" required>
-                    <input type="password" placeholder="Ingresa tu contraseña" required>
+                    <input type="email" placeholder="Ingresa tu email" name = 'correo' value = "{{ request.form.correo }}" required>
+                    <input type="password" placeholder="Ingresa tu contraseña" name = 'contrasena' value = "{{ request.form.contrasena }}"  required>
                 </div>
             </div>
             <div class="contenedor-boton">

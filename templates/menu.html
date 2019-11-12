@@ -15,7 +15,7 @@
         <div class="contenedor-header">
             <div class="contenedor-atras">
                 <div class="atras">
-                    <a class="Btn_atras" href="home.html"><i class="fas fa-chevron-left"></i></a>
+                    <a class="Btn_atras" href="{{ url_for('home') }}"><i class="fas fa-chevron-left"></i></a>
                 </div>
             </div>
             <div class="contenedor-texto">
@@ -25,8 +25,9 @@
             </div>
             <div class="menu">
                 <nav>
-                    <a class="notificaciones" href="notificaciones.html"><i class="fas fa-bell"></i></a>
-                    <a class="perfil" href="menú.html"><i class="fas fa-user-circle"></i></a>
+                    <!-- <a class="notificaciones" href="{{ url_for('notificaciones') }}"><i class="fas fa-bell"></i></a> -->
+                    <a class="notificaciones" href="{{ url_for('construccion') }}"><i class="fas fa-bell"></i></a>
+                    <a class="perfil" href="{{ url_for('menu') }}"><i class="fas fa-user-circle"></i></a>
                 </nav>
             </div>
         </div>
@@ -34,27 +35,29 @@
 
     <div class="contenedor-iconos">
         <div class="caja">
-            <a class="icono_perfil" href="perfil.html"><i class="fas fa-user"></i></a>
+            <a class="icono_perfil" href="{{ url_for('perfil') }}"><i class="fas fa-user"></i></a>
             <p>Mi perfil</p>
         </div>
         <div class="caja">
-            <a class="icono_crear" href="crear-usuario.html"><i class="fas fa-user-plus"></i></a>
+            <a class="icono_crear" href="{{ url_for('pagCrearUsuario') }}"><i class="fas fa-user-plus"></i></a>
             <p>Crear usuario</p>
         </div>
         <div class="caja">
-            <a class="icono_administrar" href="administrar-usuario.html"><i class="fas fa-user-edit"></i></a>
+            <a class="icono_administrar" href="{{ url_for('administrarUsuario') }}"><i class="fas fa-user-edit"></i></a>
             <p>Editar usuarios</p>
         </div>
         <div class="caja">
-            <a class="icono_configuracion" href="configuracion.html"><i class="fas fa-cog"></i></a>
+           <!-- <a class="icono_configuracion" href="{{ url_for('configuracion') }}"><i class="fas fa-cog"></i></a> -->
+           <a class="icono_configuracion" href="{{ url_for('construccion') }}"><i class="fas fa-cog"></i></a>
             <p>Configuración</p>
         </div>
         <div class="caja">
-            <a class="icono_ayuda" href="ayuda.html"><i class="fas fa-question"></i></a>
+            <!-- <a class="icono_ayuda" href="{{ url_for('ayuda') }}"><i class="fas fa-question"></i></a> -->
+            <a class="icono_ayuda" href="{{ url_for('construccion') }}"><i class="fas fa-question"></i></a>
             <p>Ayuda</p>
         </div>
         <div class="caja">
-            <a class="icono_salir" href="login.html"><i class="fas fa-sign-out-alt"></i></a>
+            <a class="icono_salir" href="{{ url_for('loginPage') }}"><i class="fas fa-sign-out-alt"></i></a>
             <p>Salir</p>
         </div>
     </div>

@@ -16,7 +16,7 @@
         <div class="contenedor-header">
             <div class="contenedor-atras">
                 <div class="atras">
-                    <a class="Btn_atras" href="objetivos.html"><i class="fas fa-chevron-left"></i></a>
+                    <a class="Btn_atras" href="{{ url_for('objetivos') }}"><i class="fas fa-chevron-left"></i></a>
                 </div>
             </div>
             <div class="contenedor-texto">
@@ -26,8 +26,8 @@
             </div>
             <div class="menu">
                 <nav>
-                    <a class="notificaciones" href="../templates/notificaciones.html"><i class="fas fa-bell"></i></a>
-                    <a class="perfil" href="../templates/menú.html"><i class="fas fa-user-circle"></i></a>
+                    <a class="notificaciones" href="{{ url_for('nbotificaciones') }}"><i class="fas fa-bell"></i></a>
+                    <a class="perfil" href="{{ url_for('menu') }}"><i class="fas fa-user-circle"></i></a>
                 </nav>
 
             </div>

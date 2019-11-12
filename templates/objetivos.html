@@ -16,7 +16,7 @@
         <div class="contenedor-header">
             <div class="contenedor-atras">
                 <div class="atras">
-                    <a class="Btn_atras" href="plan-estratégico.html"><i class="fas fa-chevron-left"></i></a>
+                    <a class="Btn_atras" href="{{ url_for('planEstrategico') }}"><i class="fas fa-chevron-left"></i></a>
                 </div>
             </div>
             <div class="contenedor-texto">
@@ -26,8 +26,9 @@
             </div>
             <div class="menu">
                 <nav>
-                    <a class="notificaciones" href="notificaciones.html"><i class="fas fa-bell"></i></a>
-                    <a class="perfil" href="menú.html"><i class="fas fa-user-circle"></i></a>
+                    <!-- <a class="notificaciones" href="{{ url_for('notificaciones') }}"><i class="fas fa-bell"></i></a> -->
+                    <a class="notificaciones" href="{{ url_for('construccion') }}"><i class="fas fa-bell"></i></a>
+                    <a class="perfil" href="{{ url_for('menu') }}"><i class="fas fa-user-circle"></i></a>
                 </nav>
 
             </div>
@@ -69,13 +70,13 @@
 
                         <td>
                             <div class="botonListar">
-                                <a href="actividades-clave.html">Listar</a>
+                                <a href="{{ url_for('actividadesClave')}}">Listar</a>
                             </div>
                         </td>
 
                         <td>
                             <div class="botonVerMas">
-                                <a href="ver-mas-objetivos.html">Ver más</a>
+                                <a href="{{ url_for('verMasObjetivos')}}">Ver más</a>
                             </div>
                         </td>
                     </tr>
