@@ -410,7 +410,7 @@ background-color: rgba(2, 37, 96, .4);
     display: flex;
     flex-direction: column;
     width: 214px;
-    height: 217px;
+    height: 150px;
     justify-items: center;
     align-items: center;
 }
@@ -475,6 +475,25 @@ background-color: rgba(2, 37, 96, .4);
     font-size: 14px;
 }
 
+.botonEditar{
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    margin: auto;
+    text-decoration: none;
+    text-align: center;
+    color: initial;
+    font-size: x-large;
+    width: 375px;
+    height: 77px;
+    line-height: 77px;
+    color: white;
+    background-color: #022561;
+}
+
+
+
 
 /* EDITAR USUARIOS*/
 
@@ -491,8 +510,9 @@ background-color: rgba(2, 37, 96, .4);
 .contenedor-usuario {
     display: flex;
     flex-direction: column;
+    margin: 30px auto auto auto;
     width: 375px;
-    margin: auto;
+    /* margin: auto; */
     justify-items: center;
     align-items: center;
 }

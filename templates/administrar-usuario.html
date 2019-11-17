@@ -33,7 +33,40 @@
         </div>
     </header>
     <div class="gran-contenedor">
+        {% for value in data %}
         <div class="contenedor-usuario">
+
+            <div class="imagen">
+                <img src="../static/images/profile.png" alt="Foto de perfil" width="132px">
+                <h4>{{ value.cargo }}</h4>
+            </div>
+
+            <div class="campos">
+
+                <div class="nombre">
+                    <div class="campo-nombre">
+                        <h3>Nombre</h3>
+                        <p>{{ value.nombre }}</p>
+                    </div>
+                </div>
+                <div class="nombre">
+                    <div class="campo-nombre">
+                        <h3>Email</h3>
+                        <p>{{ value.email }}</p>
+                    </div>
+
+                </div>
+                <div class="nombre">
+                    <div class="campo-nombre">
+                        <h3>Contraseña</h3>
+                        <p>***************</p>
+                    </div>
+                </div>
+                    <a class="botonEditar" href="/usuario/{{ value.id }}">Editar</a>
+            </div>
+        </div>
+        {% endfor %}
+        <!--     <div class="contenedor-usuario">
 
             <div class="imagen">
                 <img src="../static/images/perfil.png" alt="Foto de perfil" width="132px">
@@ -176,7 +209,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
     </div>
 

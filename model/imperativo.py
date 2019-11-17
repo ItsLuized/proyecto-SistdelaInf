@@ -1,4 +1,4 @@
-class imperativo():
+class Imperativo():
     def __init__(self, id_imperativo, nombre, fecha_inicio, fecha_fin, id_usuario):
         self.id_imperativo = id_imperativo
         self.nombre = nombre

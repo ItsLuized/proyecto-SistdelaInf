@@ -1,99 +1,229 @@
-from flask import Flask, render_template, flash, url_for, request, redirect
+from flask import Flask, render_template, flash, url_for, request, redirect, jsonify, abort
 from controller.usuarioController import usuarioController
 
 app = Flask(__name__)
 
+global nombre
+nombre = ''
+global cargo
+cargo = ''
+global loggedIn
+loggedIn = False
 
 @app.route('/')
 def loginPage():
+    global loggedIn
+    loggedIn = False
+    global nombre
+    nombre = ''
+    global cargo
+    cargo = ''
     return render_template('login.html')
 
 
 @app.route('/register')
 def registerPage():
-    return render_template('crear-usuario.html')
+    global loggedIn
+    if loggedIn == True:
+        return render_template('crear-usuario.html')
+    else:
+        return redirect('/')
 
 
 @app.route('/login',  methods=['POST'])
 def login():
     if request.method == 'POST':
-        if request.form['correo'] == 'admin@correo.com' and request.form['contrasena'] == 'admin':
-            return redirect('/home')
+        correo = request.form['correo']
+        a = usuarioController()
+        if a.emailExists(correo) == True:
+            password = a.getPassword(correo)[0][0]
+            print(password)
+            if request.form['contrasena'] == password:
+                global nombre 
+                nombre = a.getNombreUser(correo)
+                global cargo
+                cargo = a.getCargo(correo)
+                global loggedIn
+                loggedIn = True
+                return redirect('/home')
+            else:
+                return redirect('/')
+        else:
+            return redirect('/')
     return render_template('login.html')
 
 
 @app.route('/home')
 def home():
-    return render_template('home.html', nombre='Nombre Ejemplo')
-    # Cambiar la igualdad de nombre por alguna consulta de SQL que retorne el nombre de la persona
+    global loggedIn
+    if loggedIn == True:
+        global nombre
+        return render_template('home.html', nombre = nombre)
+    else:
+        return redirect('/')
 
 @app.route('/enconstruccion')
 def construccion():
-    return render_template('construccion.html')
+    global loggedIn
+    if loggedIn == True:
+        return render_template('construccion.html')
+    else:
+        return redirect('/')
+
 
 @app.route('/planestrategico')
 def planEstrategico():
-    return render_template('plan-estrategico.html')
+    global loggedIn
+    if loggedIn == True:
+        return render_template('plan-estrategico.html')
+    else:
+        return redirect('/')
 
-@app.route('/crearusuario')
+@app.route('/crearusuario', methods=['GET', 'POST'])
 def pagCrearUsuario():
-    return render_template('crear-usuario.html')
+    global loggedIn
+    if loggedIn == True:
+        if request.method == 'GET':
+            return render_template('crear-usuario.html')
+        else: 
+            return redirect('/menu')
+    else:
+        return redirect('/')
+    
 
 @app.route('/actividadescargos')
 def actividadesCargos():
-    return render_template('actividades-cargos.html')
+    global loggedIn
+    if loggedIn == True:
+        return render_template('actividades-cargos.html')
+    else:
+        return redirect('/')
 
 @app.route('/actividadesclaves')
 def actividadesClave():
-    return render_template('actividades-clave.html')
+    global loggedIn
+    if loggedIn == True:
+        return render_template('actividades-clave.html')
+    else:
+        return redirect('/')
 
 @app.route('/administrarusuarios')
 def administrarUsuario():
-    return render_template('administrar-usuario.html', nombre = 'Nombre Ejemplo')
+    global loggedIn
+    if loggedIn == True:
+        global cargo
+        if cargo == 'ADMINISTRADOR':
+            a = usuarioController()
+            data = a.getUsers()
+            columnas = ["id","nombre","email","password", "cargo"]
+            result = []
+
+            for d in data:
+                result.append(dict(zip(columnas,d)))
+            print(result)
+            return render_template('administrar-usuario.html', data = result)
+        else: return redirect('/menu')
+    else:
+        return redirect('/')
+    
 
 @app.route('/help')
 def ayuda():
-    return render_template('ayuda.html')
+    global loggedIn
+    if loggedIn == True:
+        return render_template('ayuda.html')
+    else:
+        return redirect('/')
 
 @app.route('/cargos')
 def cargos():
-    return render_template('cargos.html')
+    global loggedIn
+    if loggedIn == True:
+        return render_template('cargos.html')
+    else:
+        return redirect('/')
 
 @app.route('/configuration')
 def configuracion():
-    return render_template('configuracion.html')
+    global loggedIn
+    if loggedIn == True:
+        return render_template('configuracion.html')
+    else:
+        return redirect('/')
 
 @app.route('/menu')
 def menu():
-    return render_template('menu.html')
+    global loggedIn
+    if loggedIn == True:
+        return render_template('menu.html')
+    else:
+        return redirect('/')
 
 @app.route('/notificacion')
 def notificaciones():
-    return render_template('notificaciones.html')
+    global loggedIn
+    if loggedIn == True:
+        return render_template('notificaciones.html')
+    else:
+        return redirect('/')
 
 @app.route('/objetivos')
 def objetivos():
-    return render_template('objetivos.html')
+    global loggedIn
+    if loggedIn == True:
+        return render_template('objetivos.html')
+    else:
+        return redirect('/')
 
 @app.route('/perfil')
 def perfil():
-    return render_template('perfil.html', nombre = 'Camilo Vega') #Cambiar parametro nombre y mandar los demás parametros
+    global nombre
+    global cargo
+    global loggedIn
+    if loggedIn == True:
+        a = usuarioController()
+        data = a.getUserNameCargo(nombre, cargo)
+        columnas = ["id","nombre","email","password", "cargo"]
+        result = []
+
+        for d in data:
+            result.append(dict(zip(columnas,d)))
+        print(result)
+        return render_template('perfil.html', data = result) #Cambiar parametro nombre y mandar los demás parametros
+    else:
+        return redirect('/')
 
 @app.route('/planoperativo')
 def planOperativo():
-    return render_template('plan-operativo.html')
+    global loggedIn
+    if loggedIn == True:
+        return render_template('plan-operativo.html')
+    else:
+        return redirect('/')
 
 @app.route('/masactividadesclave')
 def verMasActividadesClave():
-    return render_template('ver-mas-actividades-clave.html')
+    global loggedIn
+    if loggedIn == True:
+        return render_template('ver-mas-actividades-clave.html')
+    else:
+        return redirect('/')
 
 @app.route('/masimperativos')
 def verMasImperativos():
-    return render_template('ver-mas-imperativos.html')
+    global loggedIn
+    if loggedIn == True:
+        return render_template('ver-mas-imperativos.html')
+    else:
+        return redirect('/')
 
 @app.route('/masobjetivos')
 def verMasObjetivos():
-    return render_template('ver-mas-objetivos.html')
+    global loggedIn
+    if loggedIn == True:
+        return render_template('ver-mas-objetivos.html')
+    else:
+        return redirect('/')
 
 
 # Back-end
@@ -101,23 +231,76 @@ def verMasObjetivos():
 # USUARIO
 @app.route('/usuario/create', methods=['POST'])
 def crearUsuario():
-    print(request.json)
-    nombre = request.json['nombre']
-    email = request.json['email']
-    contraseña = request.json['contrasena']
-    id_cargo = request.json['id_cargo']
-    estado = request.json['estado']
-    if nombre == "" or email == "" or contraseña == "" or id_cargo == None:
-        return  404 # CORREGIR ESTO, PUES DA ERROR AL NO RETORNAR ALGO
+    global loggedIn
+    if loggedIn == True:
+        print(request.json)
+        nombre = request.json['nombre']
+        email = request.json['email']
+        contraseña = request.json['contrasena']
+        id_cargo = request.json['id_cargo']
+        estado = request.json['estado']
+        if nombre == "" or email == "" or contraseña == "" or id_cargo == None:
+            return 400 # CORREGIR ESTO, PUES DA ERROR AL NO RETORNAR ALGO
 
-    a = usuarioController()
-    a.createUser(nombre, email, contraseña, id_cargo, estado)
-    return str(a.getUser())
+        a = usuarioController()
+        a.createUser(nombre, email, contraseña, id_cargo, estado)
+        return str(a.get_user())
 
 
-# @app.route('/usuario/update', methods = ['POST'])
-# def updateUsuario():
-#    if request.method == 'POST':
+@app.route('/usuario/<id_usuario>', methods = ['GET', 'POST'])
+def updateUsuario(id_usuario):
+    global loggedIn
+    if loggedIn == True:
+
+        if request.method == 'POST':
+            print(request.json)
+            print(request.is_json)
+            nombre = request.form['nombre']
+            email = request.form['email']
+            contrasena = request.form['password']
+            id_cargo = request.form['id_cargo']
+            estado = request.form['estado']
+            if nombre == "" or email == "" or contrasena == "" or id_cargo == "" or estado == "":
+                return 400
+
+            a = usuarioController()
+            a.updateUser(nombre, email, contrasena, id_cargo, estado, id_usuario)
+            return redirect('/administrarusuarios')
+
+        ## GET Method    
+        else:
+            a = usuarioController()
+            usuario = a.getUser(id_usuario)
+            columnas = ["id","nombre","email","password", "estado", "cargo"]
+            result = []
+
+            for d in usuario:
+                result.append(dict(zip(columnas,d)))
+            print(result)
+            return render_template('editar-usuario.html', data = result) 
+    else:
+        return redirect('/')
+
+@app.route('/usuario/update', methods=['POST'])
+def updateUser(self):
+    global loggedIn
+    if loggedIn == True:
+        print(request.json)
+        print(request.is_json)
+        id_usuario = request.json['id_usuario']
+        nombre = request.json['nombre']
+        email = request.json['correo']
+        contrasena = request.json['contrasena']
+        id_cargo = request.json['id_cargo']
+        estado = request.json['estado']
+        if nombre == "" or email == "" or contrasena == "":
+            return 400
+
+        a = usuarioController()
+        a.updateUser(nombre, email, contrasena, id_cargo, estado, id_usuario)
+        return str(a.getUser(id_usuario))
+    else:
+        return redirect('/')
 
 
 if __name__ == "__main__":

@@ -34,11 +34,10 @@
     </header>
 
     <div class="contenedor-perfil">
-
+        {% for result in data %}
         <div class="imagen">
-            <img src="../static/images/perfil.png" alt="Foto de perfil" width="132px">
-            <h2>{{ nombre }}</h2>
-            <p>Administrador</p>
+            <img src="../static/images/profile.png" alt="Foto de perfil" width="132px">
+            <h4>{{ result.cargo }}</h4>
         </div>
 
         <div class="campos">
@@ -46,19 +45,13 @@
             <div class="nombre">
                 <div class="campo-nombre">
                     <h3>Nombre</h3>
-                    <p>Camilo Andrés Vega Agudelo</p>
-                </div>
-                <div class="editar">
-                    <a href="#">Editar</a>
+                    <p>{{ result.nombre }}</p>
                 </div>
             </div>
             <div class="nombre">
                 <div class="campo-nombre">
                     <h3>Email</h3>
-                    <p>camilovegag@unisabana.edu.co</p>
-                </div>
-                <div class="editar">
-                    <a href="#">Editar</a>
+                    <p>{{ result.email }}</p>
                 </div>
             </div>
             <div class="nombre">
@@ -66,20 +59,9 @@
                     <h3>Contraseña</h3>
                     <p>***************</p>
                 </div>
-                <div class="editar">
-                    <a href="#">Editar</a>
-                </div>
-            </div>
-            <div class="nombre">
-                <div class="campo-nombre">
-                    <h3>Localización</h3>
-                    <p>Chía, Colombia</p>
-                </div>
-                <div class="editar">
-                    <a href="#">Editar</a>
-                </div>
             </div>
         </div>
+        {% endfor %}
     </div>
 
 </body>

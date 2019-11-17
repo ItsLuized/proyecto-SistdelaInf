@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Editar usuario</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/login.css">
+</head>
+
+<body>
+    <div class="contenedor">
+        <div class="contenedor-titulo">
+            <div class="titulo">
+                <h1>Editar usuario</h1>
+            </div>
+        </div>
+        {% for result in data %}
+        <form action="/usuario/{{ result.id }}" method="POST">
+            <div class="contenedor-campos dos">
+                <div class="campos">
+                    <input type="hidden" id="campoId" value="{{ result.id }}">
+                    <input id = "campoNombre" type="text" placeholder="Editar nombre" name='nombre' value="{{ result.nombre }}" required>
+                    <input id="campoEmail" type="text" placeholder="Editar email" name='email' value="{{ result.email }}" required>
+                    <input id="campoPassword" type="text" placeholder="Editar contraseña" name='password' value="{{ result.password }}" required>
+                    <select name = "id_cargo" id="campoRol" required> 
+                        <option disabled selected>‎‎                                        Editar rol</option> 
+                        <option value="1">                                        Administrador</option> 
+                        <option value="2">                                        Planeador</option>
+                        <option value="3">                                        Lider de imperativo</option>
+                        <option value="4">                                        Ejecutor</option>
+                        <!-- Lo sé, re improvisada la solución pero sirve :p -->
+                    </select>
+                    <select name = "estado" id="campoEstado" required> 
+                        <option disabled selected>‎‎                                        Editar estado</option> 
+                        <option value="ACTIVO">                                        Activo</option> 
+                        <option value="INACTIVO">                                        Inavtivo</option>
+                    </select>
+
+                </div>
+            </div>
+            <div class="contenedor-boton">
+                <div class="boton">
+                    <input id = "editarUsuario" type="submit" value="Editar Usuario">
+                </div>
+            </div>
+        </form>
+        {% endfor %}
+    </div>
+    <footer>
+        <div class="contenedor-imagen x">
+            <div class="imagen">
+                <img src="../static/images/logo.png" alt="Escudo Universidad de La Sabana" class="logo" width="200px">
+            </div>
+        </div>
+    </footer>
+        <!-- JS Files-->
+        <!-- <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+        <script src="../static/js/main.js"></script>  -->
+</body>
+</html>

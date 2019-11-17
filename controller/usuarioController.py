@@ -1,7 +1,6 @@
 from model.usuario import Usuario
 from .sqlserver import SQLServerController
 
-# USUARIO
 class usuarioController():
     def __init__(self):
         self.sqlserver = SQLServerController()
@@ -19,32 +18,63 @@ class usuarioController():
         print (val)
         self.sqlserver.insert(sql, val)
 
-    def updateUser(self, oldNombre, nombre, oldEmail, email, contraseña, id_cargo, estado):
-        sql = 'SELECT id_usuario FROM usuario WHERE (nombre LIKE ? AND correo LIKE ?);'
-        val = (oldNombre, oldEmail)
-        id_usuario = self.sqlserver.select(sql, val)
+    def updateUser(self, nombre,  email, contraseña, id_cargo, estado, id_usuario):
 
         sql = '''UPDATE usuario
                 SET nombre = ?, correo = ?, contrasena = ?, id_cargo = ?, estado = ?
                 WHERE ID_USUARIO = ?'''
         val = (nombre, email, contraseña, id_cargo, estado, id_usuario)
+        self.sqlserver.insert(sql, val)
 
-        
+    def getUsers(self):
+        sql = '''SELECT ID_USUARIO, NOMBRE, CORREO, CONTRASENA, CARGO 
+        FROM USUARIO U
+        INNER JOIN CARGO C
+        ON C.ID_CARGO = U.ID_CARGO'''
 
-    def getUser(self):
+        return self.sqlserver.selectn(sql)
+
+    def getNombreUser(self, correo):
+        sql = '''SELECT NOMBRE FROM USUARIO WHERE CORREO LIKE ?'''
+        val = (correo)
+        return self.sqlserver.select(sql, val)[0][0]
+
+    def get_user(self):
         sql = "SELECT * FROM usuario WHERE ID_USUARIO = (SELECT MAX(id_usuario)+1 FROM usuario)"
         return self.sqlserver.selectn(sql)
+
+    def getUser(self, id_usuario):
+        sql = '''SELECT * FROM USUARIO WHERE ID_USUARIO = ?'''
+        val = (id_usuario)
+        return self.sqlserver.select(sql, val)
+    
+    def getUserNameCargo(self, nombre, cargo):
+        sql = '''SELECT ID_USUARIO, NOMBRE, CORREO, CONTRASENA, CARGO
+                FROM USUARIO U
+                INNER JOIN CARGO C
+                ON C.ID_CARGO = U.ID_CARGO
+                WHERE NOMBRE LIKE ? AND CARGO LIKE ?'''
+        val = (nombre, cargo)
+        return self.sqlserver.select(sql,val)
 
     def getPassword(self, email):
         sql = "SELECT CONTRASENA FROM USUARIO WHERE CORREO LIKE ?"
         val = (email) 
-        return self.sqlserver.select(sql,val)[0][0]
+        return self.sqlserver.select(sql,val)
+
+    def getCargo(self, email):
+        sql = '''SELECT CARGO FROM USUARIO U
+                INNER JOIN CARGO C
+                ON C.ID_CARGO = U.ID_CARGO
+                WHERE CORREO LIKE ?'''
+        val = (email)
+        return self.sqlserver.select(sql, val)[0][0]
 
     def emailExists(self, email):
         sql = 'SELECT CORREO FROM USUARIO WHERE CORREO LIKE ?'
-        val = (email)
-        
+        val = (email)        
         exists = self.sqlserver.select(sql, val)
+        print(exists)
         if exists:
             return True
         else:

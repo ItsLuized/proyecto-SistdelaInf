@@ -2,13 +2,13 @@ $('#botonSubmit').on('click', function enviarSolicitud() {
     var nombre = $('#campoNombre').val();
     var email = $('#campoEmail').val();
     var password = $('#campoPassword').val();
-    var rol = $('#campoRol').val();
+    var rol = parseInt($('#campoRol').val());
 
     var localData = JSON.stringify({
         "nombre": nombre,
         "email": email,
         "contrasena": password,
-        "id_cargo": 1,
+        "id_cargo": rol,
         "estado": "ACTIVO"
     });
     console.log(nombre + " // " + email + " // " + password + " // " + rol);
