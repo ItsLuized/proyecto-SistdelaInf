@@ -26,7 +26,7 @@ class imperativoController():
         self.sqlserver.insert(sql, val)
 
     def getImperativos(self):
-        sql = '''SELECT ID_IMPERATIVO, NOMBRE, FECHA_INICIO, FECHA_FIN, USUARIO
+        sql = '''SELECT ID_IMPERATIVO, I.NOMBRE, U.NOMBRE
                 FROM IMPERATIVO I
                 INNER JOIN USUARIO U
                 ON U.ID_USUARIO = I.ID_IMPERATIVO'''

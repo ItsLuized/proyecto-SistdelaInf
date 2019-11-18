@@ -35,14 +35,15 @@
     <div class="gran-contenedor">
         {% for value in data %}
         <div class="contenedor-usuario">
-
+        
+            <input type="hidden" value="{{ value.id }}" id="campo-id_usuario"/>
             <div class="imagen">
                 <img src="../static/images/profile.png" alt="Foto de perfil" width="132px">
                 <h4>{{ value.cargo }}</h4>
             </div>
 
             <div class="campos">
-
+                
                 <div class="nombre">
                     <div class="campo-nombre">
                         <h3>Nombre</h3>
@@ -62,157 +63,18 @@
                         <p>***************</p>
                     </div>
                 </div>
+                <div id="contenedor-botones">
                     <a class="botonEditar" href="/usuario/{{ value.id }}">Editar</a>
+                    <a class="botonEliminar" href="/usuario/delete/{{ value.id }}">Eliminar</a>
+                </div>
             </div>
         </div>
         {% endfor %}
-        <!--     <div class="contenedor-usuario">
-
-            <div class="imagen">
-                <img src="../static/images/perfil.png" alt="Foto de perfil" width="132px">
-                <h2>Camilo Andrés</h2>
-                <p>Administrador</p>
-            </div>
-
-            <div class="campos">
-
-                <div class="nombre">
-                    <div class="campo-nombre">
-                        <h3>Nombre</h3>
-                        <p>{{ nombre }}</p>
-                    </div>
-                    <div class="editar">
-                        <a href="#">Editar</a>
-                    </div>
-                </div>
-                <div class="nombre">
-                    <div class="campo-nombre">
-                        <h3>Email</h3>
-                        <p>camilovegag@unisabana.edu.co</p>
-                    </div>
-                    <div class="editar">
-                        <a href="#">Editar</a>
-                    </div>
-                </div>
-                <div class="nombre">
-                    <div class="campo-nombre">
-                        <h3>Contraseña</h3>
-                        <p>***************</p>
-                    </div>
-                    <div class="editar">
-                        <a href="#">Editar</a>
-                    </div>
-                </div>
-                <div class="nombre">
-                    <div class="campo-nombre">
-                        <h3>Localización</h3>
-                        <p>Chía, Colombia</p>
-                    </div>
-                    <div class="editar">
-                        <a href="#">Editar</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="contenedor-usuario">
-
-            <div class="imagen">
-                <img src="../static/images/lucho.png" alt="Foto de perfil" width="132px">
-                <h2>Luis Edmanuel</h2>
-                <p>Administrador</p>
-            </div>
-
-            <div class="campos">
-
-                <div class="nombre">
-                    <div class="campo-nombre">
-                        <h3>Nombre</h3>
-                        <p>Luis Edmanuel Martínez Cruz</p>
-                    </div>
-                    <div class="editar">
-                        <a href="#">Editar</a>
-                    </div>
-                </div>
-                <div class="nombre">
-                    <div class="campo-nombre">
-                        <h3>Email</h3>
-                        <p>luismacr@unisabana.edu.co</p>
-                    </div>
-                    <div class="editar">
-                        <a href="#">Editar</a>
-                    </div>
-                </div>
-                <div class="nombre">
-                    <div class="campo-nombre">
-                        <h3>Contraseña</h3>
-                        <p>***************</p>
-                    </div>
-                    <div class="editar">
-                        <a href="#">Editar</a>
-                    </div>
-                </div>
-                <div class="nombre">
-                    <div class="campo-nombre">
-                        <h3>Localización</h3>
-                        <p>Chía, Colombia</p>
-                    </div>
-                    <div class="editar">
-                        <a href="#">Editar</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="contenedor-usuario">
-
-            <div class="imagen">
-                <img src="../static/images/nic.png" alt="Foto de perfil" width="132px">
-                <h2>Nicole Andrea</h2>
-                <p>Administrador</p>
-            </div>
-
-            <div class="campos">
-
-                <div class="nombre">
-                    <div class="campo-nombre">
-                        <h3>Nombre</h3>
-                        <p>Nicole Andrea Continelli Flores</p>
-                    </div>
-                    <div class="editar">
-                        <a href="#">Editar</a>
-                    </div>
-                </div>
-                <div class="nombre">
-                    <div class="campo-nombre">
-                        <h3>Email</h3>
-                        <p>nicolecofl@unisabana.edu.co</p>
-                    </div>
-                    <div class="editar">
-                        <a href="#">Editar</a>
-                    </div>
-                </div>
-                <div class="nombre">
-                    <div class="campo-nombre">
-                        <h3>Contraseña</h3>
-                        <p>***************</p>
-                    </div>
-                    <div class="editar">
-                        <a href="#">Editar</a>
-                    </div>
-                </div>
-                <div class="nombre">
-                    <div class="campo-nombre">
-                        <h3>Localización</h3>
-                        <p>Chía, Colombia</p>
-                    </div>
-                    <div class="editar">
-                        <a href="#">Editar</a>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
     </div>
+    
+    <!-- JS Files-->
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="../static/js/main.js"></script>
 
 </body>
-
 </html>

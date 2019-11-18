@@ -65,13 +65,14 @@
                         <th>OBJETIVOS</th>
                         <th>VER MÁS</th>
                     </tr>
+                    {% for value in data %}
                     <tr>
-                        <td>1</td>
-                        <td>Vivir los principios</td>
-                        <td>Rector</td>
+                        <td>{{ value.id }}</td>
+                        <td>{{ value.nombre_imperativo }}</td>
+                        <td>{{ value.lider }}</td>
                         <td>
                             <div class="botonListar">
-                                <a href="{{ url_for('objetivos') }}">Listar</a>
+                                <a href="/objetivos/{{ value.id }}">Listar</a>
                             </div>
                         </td>
 
@@ -81,86 +82,7 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Descripción 2</td>
-                        <td>Lider 2</td>
-                        <td>
-                            <div class="botonListar">
-                                <a href="#">Listar</a>
-                            </div>
-                        </td>
-
-                        <td>
-                            <div class="botonVerMas">
-                                <a href="#">Ver más</a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Descripción 3</td>
-                        <td>Lider 3</td>
-                        <td>
-                            <div class="botonListar">
-                                <a href="#">Listar</a>
-                            </div>
-                        </td>
-
-                        <td>
-                            <div class="botonVerMas">
-                                <a href="#">Ver más</a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Descripción 4</td>
-                        <td>Lider 4</td>
-                        <td>
-                            <div class="botonListar">
-                                <a href="#">Listar</a>
-                            </div>
-                        </td>
-
-                        <td>
-                            <div class="botonVerMas">
-                                <a href="#">Ver más</a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Descripción 5</td>
-                        <td>Lider 5</td>
-                        <td>
-                            <div class="botonListar">
-                                <a href="#">Listar</a>
-                            </div>
-                        </td>
-
-                        <td>
-                            <div class="botonVerMas">
-                                <a href="#">Ver más</a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>Descripción 6</td>
-                        <td>Lider 6</td>
-                        <td>
-                            <div class="botonListar">
-                                <a href="#">Listar</a>
-                            </div>
-                        </td>
-
-                        <td>
-                            <div class="botonVerMas">
-                                <a href="#">Ver más</a>
-                            </div>
-                        </td>
-                    </tr>
+                    {% endfor %}
                     <tr>
                         <td>
                             <div class="botonMas">

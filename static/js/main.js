@@ -8,10 +8,10 @@ $('#botonSubmit').on('click', function enviarSolicitud() {
         "nombre": nombre,
         "email": email,
         "contrasena": password,
-        "id_cargo": rol,
-        "estado": "ACTIVO"
+        "id_cargo": rol
     });
     console.log(nombre + " // " + email + " // " + password + " // " + rol);
+    console.log(localData);
     $.ajax({
         url: '/usuario/create',
         type: 'POST',

@@ -1,5 +1,6 @@
 from flask import Flask, render_template, flash, url_for, request, redirect, jsonify, abort
 from controller.usuarioController import usuarioController
+from controller.imperativoController import imperativoController
 
 app = Flask(__name__)
 
@@ -9,6 +10,7 @@ global cargo
 cargo = ''
 global loggedIn
 loggedIn = False
+
 
 @app.route('/')
 def loginPage():
@@ -39,7 +41,7 @@ def login():
             password = a.getPassword(correo)[0][0]
             print(password)
             if request.form['contrasena'] == password:
-                global nombre 
+                global nombre
                 nombre = a.getNombreUser(correo)
                 global cargo
                 cargo = a.getCargo(correo)
@@ -58,9 +60,10 @@ def home():
     global loggedIn
     if loggedIn == True:
         global nombre
-        return render_template('home.html', nombre = nombre)
+        return render_template('home.html', nombre=nombre)
     else:
         return redirect('/')
+
 
 @app.route('/enconstruccion')
 def construccion():
@@ -71,25 +74,17 @@ def construccion():
         return redirect('/')
 
 
-@app.route('/planestrategico')
-def planEstrategico():
-    global loggedIn
-    if loggedIn == True:
-        return render_template('plan-estrategico.html')
-    else:
-        return redirect('/')
-
 @app.route('/crearusuario', methods=['GET', 'POST'])
 def pagCrearUsuario():
     global loggedIn
     if loggedIn == True:
         if request.method == 'GET':
             return render_template('crear-usuario.html')
-        else: 
+        else:
             return redirect('/menu')
     else:
         return redirect('/')
-    
+
 
 @app.route('/actividadescargos')
 def actividadesCargos():
@@ -99,6 +94,7 @@ def actividadesCargos():
     else:
         return redirect('/')
 
+
 @app.route('/actividadesclaves')
 def actividadesClave():
     global loggedIn
@@ -106,6 +102,7 @@ def actividadesClave():
         return render_template('actividades-clave.html')
     else:
         return redirect('/')
+
 
 @app.route('/administrarusuarios')
 def administrarUsuario():
@@ -115,17 +112,18 @@ def administrarUsuario():
         if cargo == 'ADMINISTRADOR':
             a = usuarioController()
             data = a.getUsers()
-            columnas = ["id","nombre","email","password", "cargo"]
+            columnas = ["id", "nombre", "email", "password", "cargo"]
             result = []
 
             for d in data:
-                result.append(dict(zip(columnas,d)))
+                result.append(dict(zip(columnas, d)))
             print(result)
-            return render_template('administrar-usuario.html', data = result)
-        else: return redirect('/menu')
+            return render_template('administrar-usuario.html', data=result)
+        else:
+            return redirect('/menu')
     else:
         return redirect('/')
-    
+
 
 @app.route('/help')
 def ayuda():
@@ -135,6 +133,7 @@ def ayuda():
     else:
         return redirect('/')
 
+
 @app.route('/cargos')
 def cargos():
     global loggedIn
@@ -142,6 +141,7 @@ def cargos():
         return render_template('cargos.html')
     else:
         return redirect('/')
+
 
 @app.route('/configuration')
 def configuracion():
@@ -151,6 +151,7 @@ def configuracion():
     else:
         return redirect('/')
 
+
 @app.route('/menu')
 def menu():
     global loggedIn
@@ -158,6 +159,7 @@ def menu():
         return render_template('menu.html')
     else:
         return redirect('/')
+
 
 @app.route('/notificacion')
 def notificaciones():
@@ -167,13 +169,15 @@ def notificaciones():
     else:
         return redirect('/')
 
-@app.route('/objetivos')
+
+@app.route('/objetivos/<int:id_imperativo>')
 def objetivos():
     global loggedIn
     if loggedIn == True:
         return render_template('objetivos.html')
     else:
         return redirect('/')
+
 
 @app.route('/perfil')
 def perfil():
@@ -183,15 +187,33 @@ def perfil():
     if loggedIn == True:
         a = usuarioController()
         data = a.getUserNameCargo(nombre, cargo)
-        columnas = ["id","nombre","email","password", "cargo"]
+        columnas = ["id", "nombre", "email", "password", "cargo"]
         result = []
 
         for d in data:
-            result.append(dict(zip(columnas,d)))
+            result.append(dict(zip(columnas, d)))
         print(result)
-        return render_template('perfil.html', data = result) #Cambiar parametro nombre y mandar los demás parametros
+        # Cambiar parametro nombre y mandar los demás parametros
+        return render_template('perfil.html', data=result)
     else:
         return redirect('/')
+
+
+@app.route('/planestrategico')
+def planEstrategico():
+    global loggedIn
+    if loggedIn == True:
+        i = imperativoController()
+        data = i.getImperativos()
+        columnas = ["id", "nombre_imperativo", "lider"]
+        result = []
+
+        for d in data:
+            result.append(dict(zip(columnas, d)))
+        return render_template('plan-estrategico.html', data=result)
+    else:
+        return redirect('/')
+
 
 @app.route('/planoperativo')
 def planOperativo():
@@ -201,6 +223,7 @@ def planOperativo():
     else:
         return redirect('/')
 
+
 @app.route('/masactividadesclave')
 def verMasActividadesClave():
     global loggedIn
@@ -209,6 +232,7 @@ def verMasActividadesClave():
     else:
         return redirect('/')
 
+
 @app.route('/masimperativos')
 def verMasImperativos():
     global loggedIn
@@ -216,6 +240,7 @@ def verMasImperativos():
         return render_template('ver-mas-imperativos.html')
     else:
         return redirect('/')
+
 
 @app.route('/masobjetivos')
 def verMasObjetivos():
@@ -228,7 +253,7 @@ def verMasObjetivos():
 
 # Back-end
 
-# USUARIO
+#----------------------------- USUARIO -----------------------------#
 @app.route('/usuario/create', methods=['POST'])
 def crearUsuario():
     global loggedIn
@@ -238,67 +263,61 @@ def crearUsuario():
         email = request.json['email']
         contraseña = request.json['contrasena']
         id_cargo = request.json['id_cargo']
-        estado = request.json['estado']
         if nombre == "" or email == "" or contraseña == "" or id_cargo == None:
-            return 400 # CORREGIR ESTO, PUES DA ERROR AL NO RETORNAR ALGO
+            return 400  # CORREGIR ESTO, PUES DA ERROR AL NO RETORNAR ALGO
 
         a = usuarioController()
-        a.createUser(nombre, email, contraseña, id_cargo, estado)
+        a.createUser(nombre, email, contraseña, id_cargo)
         return str(a.get_user())
 
 
-@app.route('/usuario/<id_usuario>', methods = ['GET', 'POST'])
+@app.route('/usuario/<id_usuario>', methods=['GET', 'POST', 'DELETE'])
 def updateUsuario(id_usuario):
     global loggedIn
+    global cargo
     if loggedIn == True:
+        if cargo == 'ADMINISTRADOR':
+            # POST Method
+            if request.method == 'POST':
+                nombre = request.form['nombre']
+                email = request.form['email']
+                contrasena = request.form['password']
+                id_cargo = request.form['id_cargo']
+                if nombre == "" or email == "" or contrasena == "" or id_cargo == "":
+                    return 400
 
-        if request.method == 'POST':
-            print(request.json)
-            print(request.is_json)
-            nombre = request.form['nombre']
-            email = request.form['email']
-            contrasena = request.form['password']
-            id_cargo = request.form['id_cargo']
-            estado = request.form['estado']
-            if nombre == "" or email == "" or contrasena == "" or id_cargo == "" or estado == "":
-                return 400
+                a = usuarioController()
+                a.updateUser(nombre, email, contrasena, id_cargo, id_usuario)
+                return redirect('/administrarusuarios')
 
-            a = usuarioController()
-            a.updateUser(nombre, email, contrasena, id_cargo, estado, id_usuario)
-            return redirect('/administrarusuarios')
+            # GET Method
+            elif request.method == 'GET':
+                a = usuarioController()
+                usuario = a.getUser(id_usuario)
+                columnas = ["id", "nombre", "email", "password", "cargo"]
+                result = []
 
-        ## GET Method    
-        else:
-            a = usuarioController()
-            usuario = a.getUser(id_usuario)
-            columnas = ["id","nombre","email","password", "estado", "cargo"]
-            result = []
-
-            for d in usuario:
-                result.append(dict(zip(columnas,d)))
-            print(result)
-            return render_template('editar-usuario.html', data = result) 
+                for d in usuario:
+                    result.append(dict(zip(columnas, d)))
+                print(result)
+                return render_template('editar-usuario.html', data=result)
+            else:
+                redirect('/menu')
     else:
         return redirect('/')
 
-@app.route('/usuario/update', methods=['POST'])
-def updateUser(self):
+
+@app.route('/usuario/delete/<id_usuario>')
+def deleteUsuario(id_usuario):
     global loggedIn
     if loggedIn == True:
-        print(request.json)
-        print(request.is_json)
-        id_usuario = request.json['id_usuario']
-        nombre = request.json['nombre']
-        email = request.json['correo']
-        contrasena = request.json['contrasena']
-        id_cargo = request.json['id_cargo']
-        estado = request.json['estado']
-        if nombre == "" or email == "" or contrasena == "":
-            return 400
-
-        a = usuarioController()
-        a.updateUser(nombre, email, contrasena, id_cargo, estado, id_usuario)
-        return str(a.getUser(id_usuario))
+        global cargo
+        if cargo == 'ADMINISTRADOR':
+            a = usuarioController()
+            a.deleteUser(id_usuario)
+            return redirect('/administrarusuarios')
+        else:
+            return redirect('/menu')
     else:
         return redirect('/')
 
