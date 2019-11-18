@@ -30,5 +30,11 @@ class imperativoController():
                 FROM IMPERATIVO I
                 INNER JOIN USUARIO U
                 ON U.ID_USUARIO = I.ID_IMPERATIVO'''
-
         return self.sqlserver.selectn(sql)
+
+    def getImperativo(self, id_imperativo):
+        sql = '''SELECT ID_IMPERATIVO, NOMBRE, FECHA_INICIO, FECHA_FIN, ID_USUARIO
+                FROM IMPERATIVO
+                WHERE ID_IMPERATIVO = ?'''
+        val = (id_imperativo)
+        return self.sqlserver.select(sql, val)

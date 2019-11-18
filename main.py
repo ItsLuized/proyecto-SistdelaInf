@@ -169,7 +169,7 @@ def notificaciones():
     else:
         return redirect('/')
 
-
+# ------------------------- OBJETIVOS -------------------------#
 @app.route('/objetivos/<int:id_imperativo>')
 def objetivos():
     global loggedIn
