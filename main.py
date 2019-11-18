@@ -1,6 +1,8 @@
 from flask import Flask, render_template, flash, url_for, request, redirect, jsonify, abort
 from controller.usuarioController import usuarioController
 from controller.imperativoController import imperativoController
+from controller.objetivoController import objetivoController
+from controller.actividad_claveController import actividad_claveController
 
 app = Flask(__name__)
 
@@ -95,11 +97,18 @@ def actividadesCargos():
         return redirect('/')
 
 
-@app.route('/actividadesclaves')
-def actividadesClave():
+@app.route('/<id_imperativo>/<id_objetivo>/actividadesclaves')
+def actividadesClave(id_imperativo, id_objetivo):
     global loggedIn
     if loggedIn == True:
-        return render_template('actividades-clave.html')
+        ac = actividad_claveController()
+        data = ac.getActividadClaveObjetivo(id_objetivo)
+        columnas = ["id", "nombre"]
+        result = []
+
+        for d in data:
+            result.append(dict(zip(columnas, d)))
+        return render_template('actividades-clave.html', data=result)
     else:
         return redirect('/')
 
@@ -170,11 +179,53 @@ def notificaciones():
         return redirect('/')
 
 # ------------------------- OBJETIVOS -------------------------#
-@app.route('/objetivos/<int:id_imperativo>')
-def objetivos():
+@app.route('/<id_imperativo>/objetivos')
+def objetivos(id_imperativo):
     global loggedIn
     if loggedIn == True:
-        return render_template('objetivos.html')
+        o = objetivoController()
+        data = o.getObjetivosImperativo(id_imperativo)
+        columnas = ["id", "nombre"]
+        result = []
+
+        for d in data:
+            result.append(dict(zip(columnas, d)))
+        print(result)
+        return render_template('objetivos.html', data=result, id_imperativo = id_imperativo)
+    else:
+        return redirect('/')
+
+@app.route('/<id_imperativo>/objetivo')
+def agregarObjetivo(id_imperativo):
+    global loggedIn
+    if loggedIn == True:
+        return render_template('crear-objetivo.html', id_imperativo=id_imperativo)
+    else:
+        return redirect('/')
+
+@app.route('/api/<int:id_imperativo>/objetivo', methods = ['GET', 'POST'])
+def createObjetivo(id_imperativo):
+    global loggedIn
+    if loggedIn == True:
+        if request.method == 'POST':
+            o = objetivoController()    
+            print(request.json)
+            nombre = request.json["nombre"]
+            completud_por = request.json["completud_por"]
+            print("nombre : {0}, completud_por: {1}", (nombre, completud_por))
+            o.createObjetivo(nombre, completud_por, id_imperativo)
+            return redirect('/{}/objetivos'.format(id_imperativo))
+        else:
+            return redirect('/{}/objetivos'.format(id_imperativo))
+    else:
+        return redirect('/')
+
+
+@app.route('/masobjetivos')
+def verMasObjetivos():
+    global loggedIn
+    if loggedIn == True:
+        return render_template('ver-mas-objetivos.html')
     else:
         return redirect('/')
 
@@ -193,12 +244,11 @@ def perfil():
         for d in data:
             result.append(dict(zip(columnas, d)))
         print(result)
-        # Cambiar parametro nombre y mandar los demás parametros
         return render_template('perfil.html', data=result)
     else:
         return redirect('/')
 
-
+# ----------------------------- Imperativos -----------------------------#
 @app.route('/planestrategico')
 def planEstrategico():
     global loggedIn
@@ -211,6 +261,47 @@ def planEstrategico():
         for d in data:
             result.append(dict(zip(columnas, d)))
         return render_template('plan-estrategico.html', data=result)
+    else:
+        return redirect('/')
+
+
+@app.route('/imperativo', methods=['GET', 'POST'])
+def agregarImperativo():
+    global loggedIn
+    if loggedIn == True:
+        if request.method == 'GET':
+            a = usuarioController()
+            data = a.getUsers()
+            columnas = ["id", "nombre", "correo", "contrasena", "cargo"]
+            result = []
+
+            for d in data:
+                result.append(dict(zip(columnas, d)))
+            return render_template('crear-imperativo.html', data=result)
+        else:
+            return redirect('/planestrategico')
+    else:
+        return redirect('/')
+
+
+@app.route('/api/imperativo', methods=['POST'])
+def Imperativo():
+    global loggedIn
+    if loggedIn == True:
+
+        # POST Method
+        if request.method == 'POST':
+            print(request.json)
+            i = imperativoController()
+            nombre = request.json["nombre"]
+            fecha_inicio = request.json["fecha_inicio"]
+            fecha_fin = request.json["fecha_fin"]
+            id_usuario = request.json["id_usuario"]
+            if nombre == '' or fecha_inicio == '' or fecha_fin == '' or id_usuario == '':
+                return jsonify(codigo=400)
+
+            i.CreateImperativo(nombre, fecha_inicio, fecha_fin, id_usuario)
+            return str(i.getLastImperativo())
     else:
         return redirect('/')
 
@@ -233,22 +324,41 @@ def verMasActividadesClave():
         return redirect('/')
 
 
-@app.route('/masimperativos')
-def verMasImperativos():
+@app.route('/masimperativos/<int:id_imperativo>', methods=['GET', 'PUT'])
+def verMasImperativos(id_imperativo):
     global loggedIn
     if loggedIn == True:
-        return render_template('ver-mas-imperativos.html')
+        if request.method == 'GET':
+            i = imperativoController()
+            u = usuarioController()
+            data = i.getImperativo(id_imperativo)
+            columnas = ["id_imperativo", "nombre", "fecha_inicio", "fecha_fin", "id_usuario"]
+            result = []
+
+            names = u.getUsers()
+            column =["id", "nombre", "correo", "contrasena", "cargo"]
+            nombres = []
+
+            for d in data:
+                result.append(dict(zip(columnas, d)))
+
+            for name in names:
+                nombres.append(dict(zip(column, name)))
+            return render_template('ver-mas-imperativos.html', data=result, nombres=nombres)
+        else:
+            i = imperativoController()
+            print(request.json)
+            nombre = request.json['nombre']
+            id_usuario = request.json['id_usuario']
+            fecha_inicio = request.json['fecha_inicio']
+            fecha_fin = request.json['fecha_fin']
+
+            i.updateImperativo(id_imperativo, nombre, fecha_inicio, fecha_fin, id_usuario)
+            
     else:
         return redirect('/')
 
 
-@app.route('/masobjetivos')
-def verMasObjetivos():
-    global loggedIn
-    if loggedIn == True:
-        return render_template('ver-mas-objetivos.html')
-    else:
-        return redirect('/')
 
 
 # Back-end

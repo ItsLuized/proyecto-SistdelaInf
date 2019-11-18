@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Crear objetivo</title>
+    <script src="https://kit.fontawesome.com/4e4e7f8918.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../static/css/login.css">
+</head>
+
+<body>
+    <input type="hidden" id="id_imperativo" value="{{ id_imperativo }}">
+    <div class="contenedor">
+        <div class="contenedor-titulo">
+            <div class="titulo">
+                <h1>Crear objetivo</h1>
+            </div>
+        </div>
+        <form action="/api/{{ id_imperativo}}/objetivo" method="GET">
+            <div class="contenedor-campos">
+                <div class="campos">
+                    <br>
+                    <input type="text" placeholder="Ingresar descripción" id="campoNombre" name="campoNombre" required>
+
+                    <input type="number" placeholder="Ingresar porcentaje de completud" id="completud_por"
+                        name="completud_por" required min="0" max="100">
+
+
+                </div>
+            </div>
+            <div class="contenedor-boton">
+                <div class="boton">
+                    <input type="submit" value="Crear" id="createObjetivo">
+                </div>
+            </div>
+    </div>
+    </div>
+    </div>
+
+    <!-- JS Files-->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="../static/js/main.js"></script>
+
+</body>
+
+</html>

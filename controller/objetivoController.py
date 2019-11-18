@@ -1,22 +1,23 @@
-from model.objetivo import objetivo
+from model.objetivo import Objetivo
 from .sqlserver import SQLServerController
 
 class objetivoController():
     def __init__(self):
         self.sqlserver = SQLServerController()
 
-    def CreateObjetivo(self, nombre, completud_por, id_imperativo):
-        sql = '''SELECT MAX(ID_OBJETIVO)+1 FROM IMPERATIVO'''
-        id_objetivo = self.sqlserver.selectn(sql)
+    def createObjetivo(self, nombre, completud_por, id_imperativo):
+        sql = '''SELECT MAX(ID_OBJETIVO)+1 FROM OBJETIVO'''
+        id_objetivo = self.sqlserver.selectn(sql)[0][0]
         if id_objetivo is None:
             id_objetivo = 1
 
-        Objetivo = objetivo(id_objetivo, nombre, completud_por, id_imperativo)
+        objetivo = Objetivo(id_objetivo = id_objetivo, nombre = nombre, completud_por = completud_por, id_imperativo = id_imperativo)
         sql = '''INSERT INTO OBJETIVO (ID_OBJETIVO, NOMBRE, COMPLETUD_POR, ID_IMPERATIVO)
                 VALUES (?, ?, ?, ?)'''
-        val = (Objetivo.id_objetivo, Objetivo.nombre, Objetivo.completud_por, Objetivo.id_imperativo)
+        val = (objetivo.id_objetivo, objetivo.nombre, objetivo.completud_por, objetivo.id_imperativo)
         print(val)
         self.sqlserver.insert(sql, val)
+
 
     def updateObjetivo(self, nombre, completud_por, id_objetivo):
         sql = '''UPDATE OBJETIVO
@@ -37,6 +38,11 @@ class objetivoController():
                 WHERE ID_OBJETIVO = ?'''
         val = (id_objetivo)
         return self.sqlserver.select(sql, val)
+
+    def getLastObjetivo(self):
+        sql = "SELECT * FROM OBJETIVO WHERE ID_OBJETIVO = (SELECT MAX(ID_OBJETIVO)+ FROM OBJETIVO)"
+
+        return self.sqlserver.selectn(sql)
 
     def deleteObjetivo(self, id_objetivo):
         sql = '''DELETE FROM OBJETIVO

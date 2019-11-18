@@ -1,4 +1,4 @@
-class objetivo():
+class Objetivo():
     def __init__(self, id_objetivo, nombre, completud_por, id_imperativo):
         self.id_objetivo = id_objetivo
         self.nombre = nombre

@@ -64,16 +64,19 @@
                         <th>DESCRIPCIÓN</th>
                         <th>VER MÁS</th>
                     </tr>
+                    {% for value in data %}
                     <tr>
-                        <td>1</td>
-                        <td>Socialización de politicas y estructuras aprobadas</td>
+                        <td>{{value.id}}</td>
+                        <td>{{ value.nombre}}</td>
 
                         <td>
                             <div class="botonVerMas">
-                                <a href="{{ url_for('verMasActividadesClave') }}">Ver más</a>
+                                <a href="/{{id_imperativo}}/{{id_objetivo}}/{{value.id}}/update">Ver más</a>
                             </div>
                         </td>
                     </tr>
+                    {% endfor %}
+                    <!--
                     <tr>
                         <td>2</td>
                         <td>Descripción 2</td>
@@ -124,6 +127,7 @@
                             </div>
                         </td>
                     </tr>
+                    -->
                     <tr>
                         <td>
                             <div class="botonMas">

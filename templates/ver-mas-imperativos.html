@@ -17,22 +17,21 @@
                 <h1>Editar imperativo</h1>
             </div>
         </div>
-        <form action="plan-estratégico.html" method="POST">
+        <form action="/planestrategico" method="GET">
             <div class="contenedor-campos">
                 <div class="campos">
 
-                    {% for result in data %}
+                    
                     <select id="opcionLider" required>
-                        {% for nombre in nombres %}
-                        {% if result.id_usuario == nombre.id %}
-                        <option value="{{ nombre.id }}" selected>                         {{ nombre.nombre }}</option>
-                        {% endif %}
                         
-                        <option value="{{ nombre.id }}">                         {{ nombre.nombre }}</option> 
+                        <option disabled selected>                                     Editar Lider</option> 
+                        {% for nombre in nombres %}
+                        <option value="{{ nombre.id }}">                                            {{ nombre.nombre }}</option> 
                         {% endfor %}
                     </select>
                     <br>
-                    
+                    {% for result in data %}
+                    <input type="hidden" id="id_imperativo" value="{{ result.id_imperativo }}">
                     <input type="text" placeholder="Editar descripción" value = "{{ result.nombre }}" id="campoNombre" required>
                     
                     <p style="color: white;">Editar fecha de inicio</p>
@@ -50,12 +49,15 @@
             display: flex;
             flex-direction: row;
             ">
-                <input type="submit" value="Eliminar" id="createImperativo" style="background: red;">
-                <input type="submit" value="Editar" id="createImperativo">
+                <input type="submit" value="Eliminar" id="EliminarImperativo" style="background: red;">
+                <input type="submit" value="Editar" id="editarImperativo">
             </div>
         </div>
     </div>
     </div>
 </body>
+    <!-- JS Files-->
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="../static/js/main.js"></script>
 
 </html>

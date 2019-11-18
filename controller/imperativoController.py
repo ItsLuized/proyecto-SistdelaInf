@@ -7,7 +7,7 @@ class imperativoController():
 
     def CreateImperativo(self,nombre, fecha_inicio, fecha_fin, id_usuario):
         sql = '''SELECT MAX(ID_IMPERATIVO)+1 FROM IMPERATIVO'''
-        id_imperativo = self.sqlserver.selectn(sql)
+        id_imperativo = self.sqlserver.selectn(sql)[0][0]
         if id_imperativo is None:
             id_imperativo = 1
 
@@ -29,7 +29,7 @@ class imperativoController():
         sql = '''SELECT ID_IMPERATIVO, I.NOMBRE, U.NOMBRE
                 FROM IMPERATIVO I
                 INNER JOIN USUARIO U
-                ON U.ID_USUARIO = I.ID_IMPERATIVO'''
+                ON U.ID_USUARIO = I.ID_USUARIO'''
         return self.sqlserver.selectn(sql)
 
     def getImperativo(self, id_imperativo):
@@ -44,3 +44,8 @@ class imperativoController():
                 WHERE ID_IMPERATIVO = ?'''
         val = (id_imperativo)
         self.sqlserver.insert(sql, val)
+
+    def getLastImperativo(self):
+        sql = "SELECT * FROM IMPERATIVO WHERE ID_IMPERATIVO = (SELECT MAX(id_imperatibo)+1 FROM imperativo)"
+
+        return self.sqlserver.selectn(sql)
