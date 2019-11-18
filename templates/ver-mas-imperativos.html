@@ -7,75 +7,55 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Editar imperativo</title>
     <script src="https://kit.fontawesome.com/4e4e7f8918.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../static/css/estilos.css">
+    <link rel="stylesheet" href="../static/css/login.css">
 </head>
 
 <body>
-    <header>
-        <div class="contenedor-header">
-            <div class="contenedor-atras">
-                <div class="atras">
-                    <a class="Btn_atras" href="{{ url_for('planEstrategico') }}"><i class="fas fa-chevron-left"></i></a>
-                </div>
-            </div>
-            <div class="contenedor-texto">
-                <div class="texto">
-                    <h2 class="planing">Editar imperativo</h2>
-                </div>
-            </div>
-            <div class="menu">
-                <nav>
-                    <!-- <a class="notificaciones" href="{{ url_for('notificaciones') }}"><i class="fas fa-bell"></i></a> -->
-                    <a class="notificaciones" href="{{ url_for('construccion') }}"><i class="fas fa-bell"></i></a>
-                    <a class="perfil" href="{{ url_for('menu') }}"><i class="fas fa-user-circle"></i></a>
-                </nav>
+    <div class="contenedor">
+        <div class="contenedor-titulo">
+            <div class="titulo">
+                <h1>Editar imperativo</h1>
             </div>
         </div>
-    </header>
+        <form action="plan-estratégico.html" method="POST">
+            <div class="contenedor-campos">
+                <div class="campos">
 
-    <div class="contenedor-editor">
+                    {% for result in data %}
+                    <select id="opcionLider" required>
+                        {% for nombre in nombres %}
+                        {% if result.id_usuario == nombre.id %}
+                        <option value="{{ nombre.id }}" selected>                         {{ nombre.nombre }}</option>
+                        {% endif %}
+                        
+                        <option value="{{ nombre.id }}">                         {{ nombre.nombre }}</option> 
+                        {% endfor %}
+                    </select>
+                    <br>
+                    
+                    <input type="text" placeholder="Editar descripción" value = "{{ result.nombre }}" id="campoNombre" required>
+                    
+                    <p style="color: white;">Editar fecha de inicio</p>
+                    <input type="date" value="{{ result.fecha_inicio }}" id="fecha_inicio" required>
+                    
+                    <p style="color: white;">Editar fecha final</p>
+                    <input type="date" value = "{{ result.fecha_fin }}" id="fecha_fin" required>
+                    {% endfor %}
 
-        <div class="campos">
-
-            <div class="nombre descripcion">
-                <div class="campo-nombre">
-                    <h3>ID</h3>
-                    <p>1</p>
                 </div>
-                <div class="editar">
-                    <a href="#">Editar</a>
-                </div>
-            </div>
-            <div class="nombre descripcion">
-                <div class="campo-nombre">
-                    <h3>Líder</h3>
-                    <p>Rector Obdulio Velásquez Posada</p>
-                </div>
-                <div class="editar">
-                    <a href="#">Editar</a>
-                </div>
-            </div>
-            <div class="nombre descripcion">
-                <div class="campo-nombre">
-                    <h3>Descripción</h3>
-                    <p>Vivir los principios universitarios en comunidad. </p>
-                </div>
-                <div class="editar">
-                    <a href="#">Editar</a>
-                </div>
-            </div>
-            <div class="nombre grande">
-                <div class="botoon eliminar">
-                    <a href="#">Eliminar <i class="fas fa-trash"></i></a>
-                </div>
-                <div class="botoon edit">
-                    <a href="{{ url_for('planEstrategico') }}">Aceptar <i class="fas fa-check"></i></a>
-                </div>
+        </form>
+        <div class="contenedor-boton">
+            <div class="boton" 
+            style="
+            display: flex;
+            flex-direction: row;
+            ">
+                <input type="submit" value="Eliminar" id="createImperativo" style="background: red;">
+                <input type="submit" value="Editar" id="createImperativo">
             </div>
         </div>
     </div>
     </div>
-
 </body>
 
 </html>
