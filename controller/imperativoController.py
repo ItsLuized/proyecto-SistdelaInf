@@ -38,3 +38,9 @@ class imperativoController():
                 WHERE ID_IMPERATIVO = ?'''
         val = (id_imperativo)
         return self.sqlserver.select(sql, val)
+
+    def deleteImperativo(self, id_imperativo):
+        sql = '''DELETE FROM IMPERATIVO
+                WHERE ID_IMPERATIVO = ?'''
+        val = (id_imperativo)
+        self.sqlserver.insert(sql, val)

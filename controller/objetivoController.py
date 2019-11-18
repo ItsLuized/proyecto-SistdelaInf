@@ -1,7 +1,7 @@
 from model.objetivo import objetivo
 from .sqlserver import SQLServerController
 
-class imperativoController():
+class objetivoController():
     def __init__(self):
         self.sqlserver = SQLServerController()
 
@@ -25,9 +25,11 @@ class imperativoController():
         val = (nombre, completud_por, id_objetivo)
         self.sqlserver.insert(sql, val)
 
-    def getObjetivos(self):
-        sql = '''SELECT ID_OBJETIVO, NOMBRE FROM OBJETIVO'''
-        return self.sqlserver.selectn(sql)
+    def getObjetivosImperativo(self, id_imperativo):
+        sql = '''SELECT ID_OBJETIVO, NOMBRE FROM OBJETIVO
+                WHERE ID_IMPERATIVO = ?'''
+        val = (id_imperativo)
+        return self.sqlserver.select(sql, val)
 
     def getObjetivo(self, id_objetivo):
         sql = '''SELECT NOMBRE, COMPLETUD_POR 
